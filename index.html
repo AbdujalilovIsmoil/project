@@ -1,68 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image & Video Upload Demo</title>
+    <title>Kamera Ochish</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
+        font-family: sans-serif;
+        text-align: center;
+        margin-top: 50px;
       }
-      img,
-      video {
-        display: block;
-        margin-top: 20px;
-        max-width: 90%;
-        border: 2px solid #ccc;
-        border-radius: 8px;
+      .camera-button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
-    <h2>Select Image or Video</h2>
+    <h1>Kamerani Ishga Tushirish</h1>
 
-    <!-- Input: rasm va video uchun -->
+    <label for="selfie-camera" class="camera-button"
+      >Old Kameradan Rasm Olish</label
+    >
     <input
       type="file"
-      id="file__input"
-      accept="image/*,video/*"
-      capture="environment"
+      id="selfie-camera"
+      accept="image/*"
+      capture="user"
+      style="display: none"
     />
 
-    <div id="preview"></div>
+    <br /><br />
 
-    <script>
-      const fileInput = document.getElementById("file__input");
-      const preview = document.getElementById("preview");
-
-      fileInput.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        // Clear previous preview
-        preview.innerHTML = "";
-
-        // Rasm fayli
-        if (file.type.startsWith("image/")) {
-          const img = new Image();
-          img.src = URL.createObjectURL(file);
-          img.width = 300;
-          img.height = 300;
-          preview.appendChild(img);
-        }
-        // Video fayli
-        else if (file.type.startsWith("video/")) {
-          const video = document.createElement("video");
-          video.src = URL.createObjectURL(file);
-          video.width = 300;
-          video.height = 300;
-          video.controls = true;
-          preview.appendChild(video);
-        } else {
-          alert("Only image or video files are allowed!");
-        }
-      });
-    </script>
+    <label
+      for="back-camera"
+      class="camera-button"
+      style="background-color: #008cba"
+      >Orqa Kameradan Rasm Olish</label
+    >
+    <input
+      type="file"
+      id="back-camera"
+      accept="image/*"
+      capture="environment"
+      style="display: none"
+    />
   </body>
 </html>
