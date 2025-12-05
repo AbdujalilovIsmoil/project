@@ -6,7 +6,12 @@
     <title>Upload File</title>
   </head>
   <body>
-    <input type="file" id="file__input" accept="image/*,video/*" />
+    <input
+      type="file"
+      id="file__input"
+      accept="image/*,video/*"
+      capture="camera"
+    />
 
     <script>
       const fileInput = document.getElementById("file__input");
