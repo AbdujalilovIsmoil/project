@@ -3,28 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload File</title>
+    <title>Document</title>
   </head>
   <body>
-    <input
-      type="file"
-      id="file__input"
-      accept="video/*"
-      capture="environment"
-    />
+    <input type="file" id="file__input" accept="video/*" capture="camcorder" />
 
     <script>
       const fileInput = document.getElementById("file__input");
 
       fileInput.addEventListener("change", (e) => {
-        const img = new Image();
         const file = e.target.files[0];
+        const video = document.createElement("video");
 
-        img.width = 300;
-        img.height = 300;
-        img.src = URL.createObjectURL(file);
+        video.width = 300;
+        video.height = 300;
+        video.controls = true;
+        video.src = URL.createObjectURL(file);
 
-        document.body.appendChild(img);
+        document.body.appendChild(video);
       });
     </script>
   </body>
