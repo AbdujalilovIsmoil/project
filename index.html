@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload File</title>
+  </head>
+  <body>
+    <input type="file" id="file__input" />
+
+    <script>
+      const fileInput = document.getElementById("file__input");
+
+      fileInput.addEventListener("change", (e) => {
+        const img = new Image();
+        const file = e.target.files[0];
+
+        img.width = 300;
+        img.height = 300;
+        img.src = URL.createObjectURL(file);
+
+        document.body.appendChild(img);
+      });
+    </script>
+  </body>
+</html>
