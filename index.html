@@ -3,29 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Image & Video Upload Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      img,
+      video {
+        display: block;
+        margin-top: 20px;
+        max-width: 90%;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+      }
+    </style>
   </head>
   <body>
+    <h2>Select Image or Video</h2>
+
+    <!-- Input: rasm va video uchun -->
     <input
       type="file"
-      accept="image/*"
-      capture="environment"
       id="file__input"
+      accept="image/*,video/*"
+      capture="environment"
     />
+
+    <div id="preview"></div>
 
     <script>
       const fileInput = document.getElementById("file__input");
+      const preview = document.getElementById("preview");
 
       fileInput.addEventListener("change", (e) => {
         const file = e.target.files[0];
-        const video = document.createElement("video");
+        if (!file) return;
 
-        video.width = 300;
-        video.height = 300;
-        video.controls = true;
-        video.src = URL.createObjectURL(file);
+        // Clear previous preview
+        preview.innerHTML = "";
 
-        document.body.appendChild(video);
+        // Rasm fayli
+        if (file.type.startsWith("image/")) {
+          const img = new Image();
+          img.src = URL.createObjectURL(file);
+          img.width = 300;
+          img.height = 300;
+          preview.appendChild(img);
+        }
+        // Video fayli
+        else if (file.type.startsWith("video/")) {
+          const video = document.createElement("video");
+          video.src = URL.createObjectURL(file);
+          video.width = 300;
+          video.height = 300;
+          video.controls = true;
+          preview.appendChild(video);
+        } else {
+          alert("Only image or video files are allowed!");
+        }
       });
     </script>
   </body>
