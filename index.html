@@ -18,37 +18,92 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        margin: 10px;
+      }
+      #preview {
+        margin-top: 30px;
+      }
+      img {
+        width: 300px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
       }
     </style>
   </head>
   <body>
     <h1>Kamerani Ishga Tushirish</h1>
 
-    <label for="selfie-camera" class="camera-button"
-      >Old Kameradan Rasm Olish</label
-    >
+    <button class="camera-button" id="frontBtn">
+      Old Kameradan Rasm Olish
+    </button>
     <input
       type="file"
-      id="selfie-camera"
+      id="frontCamera"
       accept="image/*"
       capture="user"
       style="display: none"
     />
 
-    <br /><br />
+    <br />
 
-    <label
-      for="back-camera"
+    <button
       class="camera-button"
+      id="backBtn"
       style="background-color: #008cba"
-      >Orqa Kameradan Rasm Olish</label
     >
+      Orqa Kameradan Rasm Olish
+    </button>
     <input
       type="file"
-      id="back-camera"
+      id="backCamera"
       accept="image/*"
       capture="environment"
       style="display: none"
     />
+
+    <div id="preview"></div>
+
+    <script>
+      const frontBtn = document.getElementById("frontBtn");
+      const backBtn = document.getElementById("backBtn");
+      const frontCamera = document.getElementById("frontCamera");
+      const backCamera = document.getElementById("backCamera");
+      const preview = document.getElementById("preview");
+
+      // Permission tekshirish
+      async function checkPermission() {
+        try {
+          await navigator.mediaDevices.getUserMedia({ video: true });
+          return true;
+        } catch (err) {
+          alert("Kamera ruxsati yo‘q yoki qurilmangizda muammo bor");
+          return false;
+        }
+      }
+
+      // Old kamera
+      frontBtn.addEventListener("click", async () => {
+        if (await checkPermission()) frontCamera.click();
+      });
+
+      // Orqa kamera
+      backBtn.addEventListener("click", async () => {
+        if (await checkPermission()) backCamera.click();
+      });
+
+      // Preview uchun
+      frontCamera.addEventListener("change", handleFile);
+      backCamera.addEventListener("change", handleFile);
+
+      function handleFile(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        preview.innerHTML = "";
+        preview.appendChild(img);
+      }
+    </script>
   </body>
 </html>
